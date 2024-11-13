@@ -1,3 +1,9 @@
+// Imports
+use rand::Rng;
+
+// Info
+const VERSION: &str="0.0.1";
+
 // Wordlist
 const WORD_LIST: [&str; 100] = [
     "adventure", "backyard", "campfire", "diplomat", "euphoria", "freckles", "geometry", "handmade",
@@ -16,6 +22,9 @@ const WORD_LIST: [&str; 100] = [
 ];
 
 fn main() {
-    println!("Hello, world!");
-    println!("{}", WORD_LIST[99]);
+    println!("Hangr v{}", VERSION);
+
+    let mut rng = rand::thread_rng();
+    let i = rng.gen_range(0..=100);
+    println!("Your random word is: {}", WORD_LIST[i]);
 }
