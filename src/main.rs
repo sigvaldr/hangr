@@ -80,7 +80,7 @@ r"  +---+
 // Runtime baby!
 fn main() {
     main_menu();
-    game_loop();
+    game_loop(0);
 }
 
 // Utils
@@ -95,13 +95,13 @@ fn get_word() -> String {
     return w;
 }
 
-fn game_loop() {
-    println!("{}", MAN[6]);
+fn game_loop(man_count: u8) {
+    println!("{}", MAN[man_count as usize]);
     let word: String = get_word();
     println!("Your random word is: {}", word);
 
     let mut guess = String::new();
-    print!("🤔 ");
+    print!("Guess a letter or the full word 🤔: ");
     io::stdout().flush().unwrap(); // Ensures above print statement happens immediately
     io::stdin().read_line(&mut guess).unwrap();
     let guess: String = guess.trim().to_string();
