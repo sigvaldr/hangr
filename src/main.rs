@@ -1,5 +1,7 @@
 // Imports
 use rand::Rng;
+use clearscreen;
+use std::io::{self, Write};
 
 // Info
 const VERSION: &str="0.0.1";
@@ -21,10 +23,93 @@ const WORD_LIST: [&str; 100] = [
     "tethered", "unworthy", "vintages", "webisode"
 ];
 
-fn main() {
-    println!("Hangr v{}", VERSION);
+// Hangman art
+const MAN: [&str; 7] = [
+    r"  +---+
+  |   |
+      |
+      |
+      |
+      |
+=========",
+r"  +---+
+  |   |
+  O   |
+      |
+      |
+      |
+=========",
+r"  +---+
+  |   |
+  O   |
+  |   |
+      |
+      |
+=========",
+r"  +---+
+  |   |
+  O   |
+ /|   |
+      |
+      |
+=========",
+r"  +---+
+  |   |
+  O   |
+ /|\  |
+      |
+      |
+=========",
+r"  +---+
+  |   |
+  O   |
+ /|\  |
+ /    |
+      |
+=========",
+r"  +---+
+  |   |
+  O   |
+ /|\  |
+ / \  |
+      |
+========="
 
-    let mut rng = rand::thread_rng();
-    let i = rng.gen_range(0..=100);
-    println!("Your random word is: {}", WORD_LIST[i]);
+];
+
+// Runtime baby!
+fn main() {
+    main_menu();
+    game_loop();
+}
+
+// Utils
+fn clear() {
+    clearscreen::clear().unwrap();
+}
+
+fn get_word() -> String {
+    let mut rng: rand::prelude::ThreadRng = rand::thread_rng();
+    let i: usize = rng.gen_range(0..=100);
+    let w: String = String::from(WORD_LIST[i]);
+    return w;
+}
+
+fn game_loop() {
+    println!("{}", MAN[6]);
+    let word: String = get_word();
+    println!("Your random word is: {}", word);
+
+    let mut guess = String::new();
+    print!("🤔 ");
+    io::stdout().flush().unwrap(); // Ensures above print statement happens immediately
+    io::stdin().read_line(&mut guess).unwrap();
+    let guess: String = guess.trim().to_string();
+    println!("You guessed: {}", guess);
+}
+
+fn main_menu () {
+    clear();
+    println!("Hangr v{}", VERSION);
+    println!("By Sigvaldr Notthrafn ©️2024")
 }
