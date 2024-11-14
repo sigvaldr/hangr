@@ -106,6 +106,7 @@ fn game_loop(man_count: u8) {
     io::stdin().read_line(&mut guess).unwrap();
     let guess: String = guess.trim().to_string();
     println!("You guessed: {}", guess);
+    
 }
 
 fn main_menu () {
